@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VidFarm</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <center style="height: 100vh;width: 100%;">
+        <iframe height="80%" id="iframe" width="99%" src=""
+            frameborder="0" allowfullscreen style="border-radius: 12px;"></iframe>
+        <br>
+        <h6>Welcome <span id="username"></span></h6>
+        <div style="justify-content: center;margin-top: 2vh;max-width: 80vw;" id="server">
+            
+        </div>
+        <div style="justify-content: center;margin-top: 2vh;max-width: 80vw;" id="ep">
+            
+        </div>
+    </center>
+
+    <script>
+        ;
+        (async () => {
+            const params = new URLSearchParams(document.location.search);
+            let movieName = decodeURIComponent(params.get("name"))
+            let code = params.get("code");
+            let username = params.get("username");
+            document.getElementById("username").innerText=username
+            try {
+                let data = await (await fetch(`https://api3.janime.workers.dev/anime/${movieName}`)).json();
+                let episode = data.results.episodes
+
+                const featured_html = episode.map((f, i) => {
+                    return `<button id="${i}" onclick="loadEp('${episode[i][1]}',${i})">${episode[i][0]}</button>`;
+                }).join('');
+                document.querySelector("#ep").insertAdjacentHTML("afterbegin", featured_html);
+            } catch (error) {
+
+            }
+
+            setInterval(() => {
+            document.title = `VidFarm`
+            setTimeout(() => {
+                document.title = `VidFarm: ${movieName}`
+            }, 1000);
+        }, 3000);
+        })();
+
+        async function loadEp(x,y) {
+            console.log(y)
+            document.getElementById(y).style.background="green"
+            try {
+                let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
+                let server = [data.results.servers.vidcdn,data.results.servers.streamwish,data.results.servers.vidhide]
+
+                const featured_html = server.map((f, i) => {
+                    return `<button onclick="changeServer('${server[i]}')">Server ${i+1}</button>`;
+                }).join('');
+                document.querySelector("#server").insertAdjacentHTML("afterbegin", featured_html);
+
+                document.getElementById("iframe").src = data.results.servers.vidcdn
+            } catch (error) {
+                
+            }
+        }
+
+        function changeServer(x){
+            document.getElementById("iframe").src = x
+        }
+    </script>
+</body>
+
+</html>

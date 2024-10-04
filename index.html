@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VidFarm</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <center style="height: 100vh;width: 100%;">
+        <iframe height="80%" id="iframe" width="99%" src="http://www.youtube.com/embed/X7Gcl-DYmyA?autoplay=1"
+            frameborder="0" allowfullscreen style="border-radius: 12px;"></iframe>
+        <br>
+        <h6>Welcome <span id="username"></span></h6>
+        <div style="display: flex;justify-content: center;margin-top: 2vh;">
+            <button onclick="changeServer(`vidsrc.in`)">Server 1</button>
+            <button onclick="changeServer(`vidsrc.pm`)">Server 2</button>
+            <button onclick="changeServer(`vidsrc.xyz`)">Server 3</button>
+            <button onclick="changeServer(`vidsrc.net`)">Server 4</button>
+            <button onclick="changeServer(`www.NontonGo.win`)">NontonGo</button>
+            <button onclick="changeServer1(`moviesapi.club`)">MovieClub</button>
+            <button onclick="changeServer2(`www.2embed.cc`)">2embed</button>
+        </div>
+    </center>
+
+
+    <script>
+        
+        const params = new URLSearchParams(document.location.search);
+        let movieName = decodeURIComponent(params.get("name"))
+        let code = params.get("code");
+        let type = params.get("type");
+        let username = params.get("username");
+        document.getElementById("username").innerText=username
+        if (type == "movie") {
+            document.getElementById("iframe").src = `https://vidsrc.xyz/embed/movie/${code}`
+        } else {
+            document.getElementById("iframe").src = `https://vidsrc.xyz/embed/tv/${code}`
+        }
+        setInterval(() => {
+            document.title = `VidFarm`
+            setTimeout(() => {
+                document.title = `VidFarm: ${movieName}`
+            }, 1000);
+        }, 3000);
+
+        function changeServer(x) {
+            if (type == "movie") {
+                document.getElementById("iframe").src = `https://${x}/embed/movie/${code}`
+            } else {
+                document.getElementById("iframe").src = `https://${x}/embed/tv/${code}`
+            }
+        }
+        function changeServer1(x) {
+            if (type == "movie") {
+                document.getElementById("iframe").src = `https://${x}/movie/${code}`
+            } else {
+                document.getElementById("iframe").src = `https://${x}/tv/${code}`
+            }
+        }
+        function changeServer2(x) {
+            if (type == "movie") {
+                document.getElementById("iframe").src = `https://${x}/embed/${code}`
+            } else {
+                document.getElementById("iframe").src = `https://${x}/embed/${code}`
+            }
+        }
+    </script>
+</body>
+
+</html>
