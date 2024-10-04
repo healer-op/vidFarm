@@ -44,6 +44,8 @@
                     return `<button id="${i}" onclick="loadEp('${episode[i][1]}',${i})">${episode[i][0]}</button>`;
                 }).join('');
                 document.querySelector("#ep").insertAdjacentHTML("afterbegin", featured_html);
+
+                loadEp(`${episode[0][1]}`,0)
             } catch (error) {
 
             }
@@ -63,6 +65,7 @@
                 let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
                 let server = [data.results.servers.vidcdn,data.results.servers.streamwish,data.results.servers.vidhide]
 
+                document.getElementById("server").innerHTML = ""
                 const featured_html = server.map((f, i) => {
                     return `<button onclick="changeServer('${server[i]}')">Server ${i+1}</button>`;
                 }).join('');
