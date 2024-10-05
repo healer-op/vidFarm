@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VidFarm</title>
+    <link rel="icon" type="image/x-icon" href="./popcorn.png">
+    <meta name="description" content="Watch Anime and Movies For Free">
+    <link rel="stylesheet" href="./css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/a001c7932f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="details-container">
+      <!-- header  -->
+      <div class="details-header">
+        <a href="/">
+          <img src="./images/logo.png" alt="" />
+        </a>
+        <div class="search-container-details">
+          <i class="fa-solid fa-magnifying-glass" onclick="openSearch()"></i>
+        </div>
+      </div>
+      <!-- end header  -->
+      <div class="details-content">
+        <img id="posterimg"
+          src="https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
+          alt="details"
+        />
+        <div class="details-image-right">
+          <div class="details-image-right-top">
+            <h1 id="postertitle">Stranger Things</h1>
+            <i class="fa-regular fa-star">
+              <span id="posterrating">8.6</span>
+            </i>
+          </div>
+          <p id="details-overview">
+            When a young boy vanishes, a small town uncovers a mystery involving
+            secret experiments, terrifying supernatural forces, and one strange
+            little girl.
+          </p>
+          <button onclick="readMore()" id="myBtn">Read more</button>
+          <h2>Genres</h2>
+          <div class="details-genres-container">
+            <div class="genres-side-left">
+              <i class="fa-solid fa-caret-left"></i>
+            </div>
+            <div class="details-genres" id="postergen">
+
+              
+            </div>
+            <div class="genres-side-right">
+              <i class="fa-solid fa-caret-right"></i>
+            </div>
+          </div>
+          <h2 id="player" onclick="render()">Watch Now 🚀</h2>
+        </div>
+      </div>
+      <div class="actors">
+        <div class="actors-top">
+          <h2>Actors</h2>
+          <div class="actors-scroll-controls">
+            <div class="actors-controls-left">
+              <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="actors-controls-right">
+              <i class="fa-solid fa-angle-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="actors-scroll" id="actorz">
+          
+        </div>
+      </div>
+    </div>
+    <script src="./controllers/details.js"></script>
+    <script type="module" src="./js/details.js"></script>
+  </body>
+</html>

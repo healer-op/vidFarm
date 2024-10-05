@@ -2,112 +2,144 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>VidFarm</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VidFarm</title>
     <link rel="icon" type="image/x-icon" href="./popcorn.png">
     <meta name="description" content="Watch Anime and Movies For Free">
-    <link rel="stylesheet" href="./style.css">
-
+  <link rel="stylesheet" href="./css/style.css" />
+  <script src="https://kit.fontawesome.com/a001c7932f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <nav class="main-menu">
-        <ul>
-            <li>
-                <a href="https://t.me/VidFarmBot" target="_blank">
-                    <i class="fa fa-home fa-2x"></i>
-                    <span class="nav-text">
-                        Community Server
-                    </span>
-                </a>
-            </li>
-            <li class="has-subnav">
-                <a>
-                    <i class="fa fa-globe fa-2x"></i>
-                    <span class="nav-text">
-                        <select name="server" id="server" onchange="changeServer()" style="width: 70%;">
-                            <option value="vidsrc.in">Server 1</option>
-                            <option value="www.2embed.cc">2embed🚀</option>
-                            <option value="vidsrc.pm">Server 2</option>
-                            <option value="vidsrc.xyz">Server 3</option>
-                            <option value="vidsrc.net">Server 4</option>
-                            <option value="www.NontonGo.win">NontonGo</option>
-                            <option value="moviesapi.club">MovieClub</option>
-                        </select>
-                    </span>
-                </a>
-            </li>
+  <div class="container">
+    <!-- header  -->
+    <header>
+      <div class="mobile-nav">
+        <button class="burger">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="search-container"  onclick="openSearch()">
+          <i class="fa-solid fa-magnifying-glass" ></i>
+        </div>
+      </div>
+      <a href="/">
+        <img src="./images/logo.png" alt="" />
+      </a>
+      <nav>
+        <h2>Browse</h2>
+        <ul class="nav-links">
+          <li>
+            <i class="fa-solid fa-magnifying-glass"></i>
+              <a href="/search.html">Search</a>
+          </li>
+          <li class="active-link">
+            <i class="fa-solid fa-layer-group"></i>
+            <a href="/">Discover</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-video"></i>
+            <a href="/movies.html">Movies</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-tv"></i>
+            <a href="/tv.html">Tv Series</a>
+          </li>
         </ul>
+      </nav>
+    </header>
+    <div id="mobile-menu" class="overlay">
+      <a class="close">&times;</a>
+      <div class="overlay-content">
+        <div>
+          <i class="fa-solid fa-magnifying-glass"></i>
+              <a href="/search.html">Search</a>
+        </div>
+        <div class="active-link-mobile">
+          <i class="fa-solid fa-layer-group"></i>
+          <a href="/">Discover</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-video"></i>
+          <a href="/movies.html">Movies</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-tv"></i>
+          <a href="/tv.html">TvSeries</a>
+        </div>
 
-        <ul class="logout">
-            <li>
-                <a href="#">
-                    <i>
-                        <img id="img" src="https://unavatar.io/telegram/uzi767"
-                            style="padding: 8px;width: 43px;border-radius: 50%;">
-                    </i>
-                    <span class="nav-text" id="username">
-                        Logout
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <iframe id="iframe"
-            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
-            src="https://www.youtube.com/embed/Sb_60g3u1LU" frameborder="0" gesture="media" allow="encrypted-media"
-            allowfullscreen></iframe>
-    <script>
-        const params = new URLSearchParams(document.location.search);
-        let movieName = decodeURIComponent(params.get("name"))
-        let code = params.get("code");
-        let type = params.get("type");
-        let username = params.get("username");
+      </div>
+    </div>
+    <!-- end header -->
+    <main>
+      <!-- slider  -->
+      <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src="./images/slider1.jpg" />
+          <div class="slider-text">Interstellar</div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./images/slider2.jpg" />
+          <div class="slider-text">Dune</div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./images/slider3.jpg" />
+          <div class="slider-text">Spider-Man: No Way Home</div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+      </div>
+      <br />
+      <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+      <!-- end slider  -->
+      <!-- custom scrollbar  -->
+      <div class="custom-scrollbar-container">
+        <div class="upper-scrollbar">
+          <h3>Trending</h3>
+        </div>
+        <div id="custom-scrollbar-trending" class="custom-scrollbar">
+          <button id="left-scroll" onclick="scrollLeftTrending()">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+          <button id="right-scroll" onclick="scrollRightTrending()">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
 
-        if(!movieName || !code || !username ){
-            window.location.href="https://t.me/VidFarmBot"
-        }
-        document.getElementById("username").innerText = '@' + username
-        document.getElementById("img").src = `https://unavatar.io/telegram/${username}`
-        if (type == "movie") {
-            document.getElementById("iframe").src = `https://vidsrc.xyz/embed/movie/${code}`
-        } else {
-            document.getElementById("iframe").src = `https://vidsrc.xyz/embed/tv/${code}`
-        }
-        setInterval(() => {
-            document.title = `VidFarm`
-            setTimeout(() => {
-                document.title = `VidFarm: ${movieName}`
-            }, 1000);
-        }, 3000);
 
-        function changeServer() {
-            let x = document.getElementById("server").value;
-            if (x.includes("vidsrc")) {
-                if (type == "movie") {
-                    document.getElementById("iframe").src = `https://${x}/embed/movie/${code}`
-                } else {
-                    document.getElementById("iframe").src = `https://${x}/embed/tv/${code}`
-                }
-            }
 
-            if (x.includes("moviesapi")) {
-                if (type == "movie") {
-                    document.getElementById("iframe").src = `https://${x}/movie/${code}`
-                } else {
-                    document.getElementById("iframe").src = `https://${x}/tv/${code}`
-                }
-            }
 
-            if (x.includes("2embed")) {
-                if (type == "movie") {
-                    document.getElementById("iframe").src = `https://${x}/embed/${code}`
-                } else {
-                    document.getElementById("iframe").src = `https://${x}/embed/${code}`
-                }
-            }
-        }
-    </script>
+      </div>
+      <!-- custom scrollbar  -->
+      <!-- custom scrollbar  -->
+      <div class="custom-scrollbar-container">
+        <div class="upper-scrollbar">
+          <h3>Popular</h3>
+        </div>
+
+        <div id="custom-scrollbar-popular" class="custom-scrollbar" >
+          <button id="left-scroll" onclick="scrollLeftPopular()">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+          <button id="right-scroll" onclick="scrollRightPopular()">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+          
+          
+          
+        </div>
+      </div>
+      <!-- custom scrollbar  -->
+    </main>
+  </div>
+  <script type="module" src="./js/header.js"></script>
+  <script type="module" src="./js/main.js"></script>
+
+  <script src="./controllers/home.js"></script>
 </body>
 
 </html>
