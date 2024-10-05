@@ -41,6 +41,15 @@
                     </span>
                 </a>
             </li>
+            <li class="has-subnav">
+                <a id="multi" href="" target="_blank">
+                    <i class="fa fa-link fa-2x"></i>
+                    <span class="nav-text">
+                        Open MultiServer(Ads)
+                        </select>
+                    </span>
+                </a>
+            </li>
         </ul>
 
         <ul class="logout">
@@ -66,9 +75,9 @@
         let code = params.get("code");
         let username = params.get("username");
 
-        // if(!movieName || !code || !username ){
-        //     window.location.href="https://t.me/VidFarmBot"
-        // }
+        if(!movieName || !code || !username ){
+            window.location.href="https://t.me/VidFarmBot"
+        }
         document.getElementById("username").innerText = '@' + username
         document.getElementById("img").src = `https://unavatar.io/telegram/${username}`;
         (async () => {
@@ -108,15 +117,15 @@
 
             try {
                 let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
-                let server = [data.results.servers.streamwish, data.results.servers.vidhide,data.results.stream.Referer,data.results.servers.vidcdn]
-                console.log(server)
+                let server = [data.results.servers.streamwish, data.results.servers.vidhide,data.results.servers.vidcdn]
+                document.getElementById("multi").href = data.results.stream.Referer
                 document.getElementById("server").innerHTML = ""
                 const featured_html = server.map((f, i) => {
                     return `<option value="${server[i]}">Server ${i+1}</option>`;
                 }).join('');
                 document.querySelector("#server").insertAdjacentHTML("afterbegin", featured_html);
 
-                document.getElementById("iframe").src = data.results.servers.vidcdn
+                document.getElementById("iframe").src = data.results.servers.vidhide
             } catch (error) {
 
             }
