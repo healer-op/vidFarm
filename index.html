@@ -1,85 +1,74 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <title>VidFarm</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    <link rel="icon" type="image/x-icon" href="./popcorn.png">
+    <meta name="description" content="Watch Anime and Movies For Free">
+    <link rel="stylesheet" href="./style.css">
 
-        * {
-            font-family: "Montserrat", sans-serif;
-        }
-
-        html {
-            background: url(https://c4.wallpaperflare.com/wallpaper/879/247/768/big-hero-6-wallpaper-preview.jpg) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-
-        h6{
-            color:white;
-            transition: 0.3s;
-        }
-
-        h6:hover{
-            font-size: 15px;
-            color:white
-        }
-
-        button {
-            transition: 0.3s;
-        }
-        button:hover{
-            padding: 5px;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-        b{
-            color: white;
-            font-size: 10px;
-        }
-        a,span{
-            color:aqua
-        }
-    </style>
 </head>
 
 <body>
-    <center style="height: 100vh;width: 100%;">
-        <iframe id="iframe" sandbox = "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="99%" height="80%" src="https://www.youtube.com/embed/4GSFrqgwhJY" frameborder="0" gesture="media" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-        <h6>Welcome <span id="username"></span></h6>
-        <div style="display: flex;justify-content: center;margin-top: 2vh;">
-            <button onclick="changeServer(`vidsrc.in`)">Server 1</button>
-            <button onclick="changeServer(`vidsrc.pm`)">Server 2</button>
-            <button onclick="changeServer(`vidsrc.xyz`)">Server 3</button>
-            <button onclick="changeServer(`vidsrc.net`)">Server 4</button>
-            <button onclick="changeServer(`www.NontonGo.win`)">NontonGo</button>
-            <button onclick="changeServer1(`moviesapi.club`)">MovieClub</button>
-            <button onclick="changeServer2(`www.2embed.cc`)">2embed</button>
-        </div>
-        <b>Use Our Bot On Telegram <a href="https://t.me/VidFarmBot" target="_blank">@VidFarmBot</a></b>
-    </center>
+    <nav class="main-menu">
+        <ul>
+            <li>
+                <a href="https://t.me/VidFarmBot" target="_blank">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Community Server
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a>
+                    <i class="fa fa-globe fa-2x"></i>
+                    <span class="nav-text">
+                        <select name="server" id="server" onchange="changeServer()" style="width: 70%;">
+                            <option value="vidsrc.in">Server 1</option>
+                            <option value="vidsrc.pm">Server 2</option>
+                            <option value="vidsrc.xyz">Server 3</option>
+                            <option value="vidsrc.net">Server 4</option>
+                            <option value="www.NontonGo.win">NontonGo</option>
+                            <option value="moviesapi.club">MovieClub</option>
+                            <option value="www.2embed.cc">2embed</option>
+                        </select>
+                    </span>
+                </a>
+            </li>
+        </ul>
 
-
+        <ul class="logout">
+            <li>
+                <a href="#">
+                    <i>
+                        <img id="img" src="https://unavatar.io/telegram/uzi767"
+                            style="padding: 8px;width: 43px;border-radius: 50%;">
+                    </i>
+                    <span class="nav-text" id="username">
+                        Logout
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <iframe id="iframe"
+            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
+            src="https://www.youtube.com/embed/Sb_60g3u1LU" frameborder="0" gesture="media" allow="encrypted-media"
+            allowfullscreen></iframe>
     <script>
-        
         const params = new URLSearchParams(document.location.search);
         let movieName = decodeURIComponent(params.get("name"))
         let code = params.get("code");
         let type = params.get("type");
         let username = params.get("username");
-        document.getElementById("username").innerText=username
+
+        if(!movieName || !code || !username ){
+            window.location.href="https://t.me/VidFarmBot"
+        }
+        document.getElementById("username").innerText = '@' + username
+        document.getElementById("img").src = `https://unavatar.io/telegram/${username}`
         if (type == "movie") {
             document.getElementById("iframe").src = `https://vidsrc.xyz/embed/movie/${code}`
         } else {
@@ -92,25 +81,30 @@
             }, 1000);
         }, 3000);
 
-        function changeServer(x) {
-            if (type == "movie") {
-                document.getElementById("iframe").src = `https://${x}/embed/movie/${code}`
-            } else {
-                document.getElementById("iframe").src = `https://${x}/embed/tv/${code}`
+        function changeServer() {
+            let x = document.getElementById("server").value;
+            if (x.includes("vidsrc")) {
+                if (type == "movie") {
+                    document.getElementById("iframe").src = `https://${x}/embed/movie/${code}`
+                } else {
+                    document.getElementById("iframe").src = `https://${x}/embed/tv/${code}`
+                }
             }
-        }
-        function changeServer1(x) {
-            if (type == "movie") {
-                document.getElementById("iframe").src = `https://${x}/movie/${code}`
-            } else {
-                document.getElementById("iframe").src = `https://${x}/tv/${code}`
+
+            if (x.includes("moviesapi")) {
+                if (type == "movie") {
+                    document.getElementById("iframe").src = `https://${x}/movie/${code}`
+                } else {
+                    document.getElementById("iframe").src = `https://${x}/tv/${code}`
+                }
             }
-        }
-        function changeServer2(x) {
-            if (type == "movie") {
-                document.getElementById("iframe").src = `https://${x}/embed/${code}`
-            } else {
-                document.getElementById("iframe").src = `https://${x}/embed/${code}`
+
+            if (x.includes("2embed")) {
+                if (type == "movie") {
+                    document.getElementById("iframe").src = `https://${x}/embed/${code}`
+                } else {
+                    document.getElementById("iframe").src = `https://${x}/embed/${code}`
+                }
             }
         }
     </script>

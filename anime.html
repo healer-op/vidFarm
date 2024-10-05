@@ -1,92 +1,95 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <title>VidFarm</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    <link rel="icon" type="image/x-icon" href="./popcorn.png">
+    <meta name="description" content="Watch Anime and Movies For Free">
+    <link rel="stylesheet" href="./style.css">
 
-        * {
-            font-family: "Montserrat", sans-serif;
-        }
-
-        html {
-            background: url(https://i.pinimg.com/originals/19/0d/38/190d381e8add80ebef59c9651ed9e073.jpg) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-
-        h6{
-            color:white;
-            transition: 0.3s;
-        }
-
-        h6:hover{
-            font-size: 15px;
-            color:white
-        }
-
-        button {
-            transition: 0.3s;
-        }
-        button:hover{
-            padding: 5px;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-        b{
-            color: white;
-            font-size: 10px;
-        }
-        a,span{
-            color:aqua
-        }
-    </style>
 </head>
 
 <body>
-    <center style="height: 100vh;width: 100%;">
-        <iframe id="iframe" sandbox = "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="99%" height="80%" src="https://www.youtube.com/embed/4GSFrqgwhJY" frameborder="0" gesture="media" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-        <br>
-        <h6>Welcome <span id="username"></span></h6>
-        <div style="justify-content: center;margin-top: 2vh;max-width: 80vw;" id="server">
+    <nav class="main-menu">
+        <ul>
+            <li>
+                <a href="https://t.me/VidFarmBot" target="_blank">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Community Server
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a>
+                    <i class="fa fa-globe fa-2x"></i>
+                    <span class="nav-text">
+                        <select name="server" id="server" onchange="changeServer()" style="width: 70%;">
 
-        </div>
-        <div style="justify-content: center;margin-top: 2vh;max-width: 80vw;" id="ep">
+                        </select>
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a>
+                    <i class="fa fa-camera-retro fa-2x"></i>
+                    <span class="nav-text">
+                        <select name="server" id="ep" onchange="loadEp()" style="width: 70%;">
 
-        </div>
-        <b>Use Our Bot On Telegram <a href="https://t.me/VidFarmBot" target="_blank">@VidFarmBot</a></b>
-    </center>
+                        </select>
+                    </span>
+                </a>
+            </li>
+        </ul>
 
+        <ul class="logout">
+            <li>
+                <a href="#">
+                    <i>
+                        <img id="img" src="https://unavatar.io/telegram/uzi767"
+                            style="padding: 8px;width: 43px;border-radius: 50%;">
+                    </i>
+                    <span class="nav-text" id="username">
+                        Logout
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <iframe id="iframe" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
+        src="https://www.youtube.com/embed/Sb_60g3u1LU" frameborder="0" gesture="media" allow="encrypted-media"
+        allowfullscreen></iframe>
     <script>
-        ;
+        const params = new URLSearchParams(document.location.search);
+        let movieName = decodeURIComponent(params.get("name"))
+        let code = params.get("code");
+        let username = params.get("username");
+
+        // if(!movieName || !code || !username ){
+        //     window.location.href="https://t.me/VidFarmBot"
+        // }
+        document.getElementById("username").innerText = '@' + username
+        document.getElementById("img").src = `https://unavatar.io/telegram/${username}`;
         (async () => {
             const params = new URLSearchParams(document.location.search);
             let movieName = decodeURIComponent(params.get("name"))
             let code = params.get("code");
-            let username = "@"+params.get("username");
+            let username = "@" + params.get("username");
             document.getElementById("username").innerText = username
+
+            if (!movieName || !code || !username) {
+                window.location.href = "https://t.me/VidFarmBot"
+            }
             try {
                 let data = await (await fetch(`https://api3.janime.workers.dev/anime/${movieName}`)).json();
                 let episode = data.results.episodes
 
                 const featured_html = episode.map((f, i) => {
-                    return `<button id="${i}" onclick="loadEp('${episode[i][1]}',${i})">${episode[i][0]}</button>`;
+                    return ` <option id="${i+1}" value="${episode[i][1]}">Episode - ${episode[i][0]}</option>`;
                 }).join('');
                 document.querySelector("#ep").insertAdjacentHTML("afterbegin", featured_html);
-
-                loadEp(`${episode[0][1]}`, 0)
+                loadEp()
             } catch (error) {
 
             }
@@ -99,18 +102,17 @@
             }, 3000);
         })();
 
-        async function loadEp(x, y) {
-            console.log(y)
-            document.getElementById(y).style.background = "rgb(0, 255, 21)"
+        async function loadEp() {
+            let x = document.getElementById("ep").value;
+
+
             try {
                 let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
-                let server = [data.results.servers.vidcdn, data.results.servers.streamwish, data.results.servers
-                    .vidhide
-                ]
-
+                let server = [data.results.servers.streamwish, data.results.servers.vidhide,data.results.stream.Referer,data.results.servers.vidcdn]
+                console.log(server)
                 document.getElementById("server").innerHTML = ""
                 const featured_html = server.map((f, i) => {
-                    return `<button onclick="changeServer('${server[i]}')">Server ${i+1}</button>`;
+                    return `<option value="${server[i]}">Server ${i+1}</option>`;
                 }).join('');
                 document.querySelector("#server").insertAdjacentHTML("afterbegin", featured_html);
 
@@ -120,9 +122,11 @@
             }
         }
 
-        function changeServer(x) {
+        function changeServer() {
+            let x = document.getElementById("server").value;
             document.getElementById("iframe").src = x
         }
+
     </script>
 </body>
 
