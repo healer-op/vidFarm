@@ -14,7 +14,7 @@
     <nav class="main-menu">
         <ul>
             <li>
-                <a href="/vidFarm/" target="_blank">
+                <a href="/VidFarm/" target="_blank">
                     <i class="fa fa-home fa-2x"></i>
                     <span class="nav-text">
                         Main Website
@@ -54,7 +54,14 @@
                     <i class="fa fa-link fa-2x"></i>
                     <span class="nav-text">
                         Open MultiServer(Ads)
-                        </select>
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a onclick="Getdownload()">
+                    <i class="fa fa-download fa-2x"></i>
+                    <span class="nav-text">
+                        Download Episode
                     </span>
                 </a>
             </li>
@@ -83,8 +90,8 @@
         let code = params.get("code");
         let username = params.get("username");
 
-        if(!movieName || !code || !username ){
-            window.location.href="https://t.me/VidFarmBot"
+        if (!movieName || !code || !username) {
+            window.location.href = "https://t.me/VidFarmBot"
         }
         document.getElementById("username").innerText = '@' + username
         document.getElementById("img").src = `https://unavatar.io/telegram/${username}`;
@@ -125,7 +132,9 @@
 
             try {
                 let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
-                let server = [data.results.servers.streamwish, data.results.servers.vidhide,data.results.servers.vidcdn]
+                let server = [data.results.servers.streamwish, data.results.servers.vidhide, data.results.servers
+                    .vidcdn
+                ]
                 document.getElementById("multi").href = data.results.stream.Referer
                 document.getElementById("server").innerHTML = ""
                 const featured_html = server.map((f, i) => {
@@ -144,6 +153,20 @@
             document.getElementById("iframe").src = x
         }
 
+        async function Getdownload() {
+            let ep = document.getElementById("ep").value;
+            console.log(ep)
+
+            try {
+                let data = await (await fetch(`https://api3.janime.workers.dev/download/${ep}`)).json();
+                let results = JSON.stringify(data.results).replaceAll("{","").replaceAll("}","").split(",")
+                results = results[results.length - 1].split('":"')[1]
+                results = results.substring(0, results.length - 1)
+                window.open(results)
+            } catch (error) {
+
+            }
+        }
     </script>
 </body>
 

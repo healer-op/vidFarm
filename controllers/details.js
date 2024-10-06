@@ -14,6 +14,21 @@ const options = {
 (async () => {
 
     try {
+        if(x.includes("anime_")){
+            let x1 = x.split("anime_")[1]
+            let data = await (await fetch(`https://api3.janime.workers.dev/anime/${x1}`)).json();
+            document.getElementById("posterimg").src= `${data.results.image}`
+            document.getElementById("postertitle").innerText= `${data.results.name}`
+            document.getElementById("details-overview").innerText= `${data.results.plot_summary}`
+            let genres = (data.results.genre).split(",");
+            console.log(genres)
+            const gen_html = genres.map((f, i) => {
+                return `<div class="genre-boxes"><p>${genres[i]}</p></div>`;
+            }).join('');
+            document.querySelector("#postergen").insertAdjacentHTML("afterbegin", gen_html);
+
+            return null;
+        }
         if(x.includes("tvv")){
             let x1 = x.split("tvv")[1]
             let data = await (await fetch(`https://api.themoviedb.org/3/tv/${x1}`, options)).json();
@@ -44,6 +59,8 @@ const options = {
               </div>`;
             }).join('');
             document.querySelector("#actorz").insertAdjacentHTML("afterbegin", actor_html);
+            return null;
+            
         }else{
             let data = await (await fetch(`https://api.themoviedb.org/3/movie/${x}`, options)).json();
             document.getElementById("posterimg").src= `https://image.tmdb.org/t/p/w500/${data.poster_path}`
@@ -86,8 +103,13 @@ function render(){
     console.log(x)
     let location = window.location.href
     location = location.substring(0, location.lastIndexOf("/") + 1);
+    if(x.includes("anime_")){
+        window.location.href = location +`/dist/anime.html?code=${(x).split("anime_")[1]}&name=${encodeURIComponent(document.getElementById("postertitle").innerText)}&username=admin`
+        return null;
+    }
     if(x.includes("tvv")){
         window.location.href = location +`/dist/index.html?name=${encodeURIComponent(document.getElementById("postertitle").innerText)}&type=series&code=${(x).split("tvv")[1]}&username=admin`
+        return null;
     }
     else{
         window.location.href = location +`/dist/index.html?name=${encodeURIComponent(document.getElementById("postertitle").innerText)}&type=movie&code=${x}&username=admin`

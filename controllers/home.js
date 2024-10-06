@@ -25,8 +25,19 @@ const options = {
         document.querySelector("#custom-scrollbar-trending").insertAdjacentHTML("afterbegin", trending_html);
 
 
+        let ap = await (await fetch(`https://api3.janime.workers.dev/gogoPopular/1`)).json(); 
+        let apopular = ap.results
+
+        const apopular_html = apopular.map((f, i) => {
+            return ` <div class="info-box" onclick="getDetails('anime_${apopular[i].id}')">
+            <img src="${apopular[i].image}" />
+            <div class="home-scrollbar-title">${apopular[i].title}</div>
+            <div class="home-scrollbar-rating">${apopular[i].releaseDate}</div>
+          </div>`;
+        }).join('');
+        document.querySelector("#custom-scrollbar-trending-anime").insertAdjacentHTML("afterbegin", apopular_html);
+
         let dp = await (await fetch(`https://api.themoviedb.org/3/movie/popular`,options)).json(); 
-        console.log(dp)
         let popular = dp.results
 
         const popular_html = popular.map((f, i) => {

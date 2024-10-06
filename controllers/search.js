@@ -58,6 +58,7 @@ async function getData() {
           </div>`;
             }).join('');
             document.querySelector("#mov").insertAdjacentHTML("afterbegin", trending_html);
+            return null;
         } if(y == 2) {
             let data = await (await fetch(`https://api.themoviedb.org/3/search/tv?&query=${x}`, options)).json();
             trending = data.results
@@ -82,12 +83,13 @@ async function getData() {
           </div>`;
             }).join('');
             document.querySelector("#mov").insertAdjacentHTML("afterbegin", trending_html);
+            return null;
         } else{
-            let data = await (await fetch(`https://api3.janime.workers.dev/search/${encodeURIComponent(x)}`, options)).json();
+            let data = await (await fetch(`https://api3.janime.workers.dev/search/${encodeURIComponent(x)}`)).json();
             trending = data.results
 
             const trending_html = trending.map((f, i) => {
-                return `<div class="list-item"  onclick="getDetails('anime${trending[i].id}')">
+                return `<div class="list-item"  onclick="getDetails('anime_${trending[i].id}')">
             <img
               class="list-item-image"
               src="${trending[i].img}"
@@ -102,6 +104,7 @@ async function getData() {
           </div>`;
             }).join('');
             document.querySelector("#mov").insertAdjacentHTML("afterbegin", trending_html);
+            return null;
         }
 
     } catch (error) {

@@ -49,6 +49,17 @@ window.scrollLeftTrending = () => {
 window.scrollRightTrending = () => {
   customScrollbarTrending.scrollLeft += 300;
 };
+//Anime
+const customScrollbarAnime = document.querySelector(
+  "#custom-scrollbar-trending-anime"
+);
+window.scrollLeftAnime = () => {
+  customScrollbarAnime.scrollLeft -= 300;
+};
+
+window.scrollRightAnime = () => {
+  customScrollbarAnime.scrollLeft += 300;
+};
 //Popular
 const customScrollbarPopular = document.querySelector(
   "#custom-scrollbar-popular"

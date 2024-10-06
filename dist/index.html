@@ -14,7 +14,7 @@
     <nav class="main-menu">
         <ul>
             <li>
-                <a href="/vidFarm/" target="_blank">
+                <a href="/VidFarm/" target="_blank">
                     <i class="fa fa-home fa-2x"></i>
                     <span class="nav-text">
                         Main Website
@@ -42,6 +42,22 @@
                             <option value="www.NontonGo.win">NontonGo</option>
                             <option value="moviesapi.club">MovieClub</option>
                         </select>
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a id="multi" href="" target="_blank">
+                    <i class="fa fa-link fa-2x"></i>
+                    <span class="nav-text">
+                        Open MultiServer(Ads)
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a id="multi2" href="" target="_blank">
+                    <i class="fa fa-link fa-2x"></i>
+                    <span class="nav-text">
+                        🌤️Open MultiServer2(Ads)
                     </span>
                 </a>
             </li>
@@ -79,8 +95,12 @@
         document.getElementById("img").src = `https://unavatar.io/telegram/${username}`
         if (type == "movie") {
             document.getElementById("iframe").src = `https://vidsrc.xyz/embed/movie/${code}`
+            document.getElementById("multi").href = `https://vidsrc.xyz/embed/movie/${code}`
+            document.getElementById("multi2").href = `https://www.NontonGo.win/embed/movie/${code}`
         } else {
             document.getElementById("iframe").src = `https://vidsrc.xyz/embed/tv/${code}`
+            document.getElementById("multi").href = `https://vidsrc.xyz/embed/tv/${code}`
+            document.getElementById("multi2").href = `https://www.NontonGo.win/embed/tv/${code}`
         }
         setInterval(() => {
             document.title = `VidFarm`
@@ -91,7 +111,7 @@
 
         function changeServer() {
             let x = document.getElementById("server").value;
-            if (x.includes("vidsrc")) {
+            if (x.includes("vidsrc") || x.includes("www.NontonGo.win")) {
                 if (type == "movie") {
                     document.getElementById("iframe").src = `https://${x}/embed/movie/${code}`
                 } else {
