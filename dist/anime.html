@@ -162,7 +162,13 @@
                 let results = JSON.stringify(data.results).replaceAll("{","").replaceAll("}","").split(",")
                 results = results[results.length - 1].split('":"')[1]
                 results = results.substring(0, results.length - 1)
-                window.open(results)
+                try {
+                    let dp = await (await fetch(`${results}`));
+                    window.open(dp.url)
+                } catch (error) {
+                    window.open(results)
+                }
+                
             } catch (error) {
 
             }
