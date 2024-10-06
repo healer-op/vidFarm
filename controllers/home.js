@@ -53,6 +53,6 @@ async function getDetails(x){
 function openSearch(){
     let location = window.location.href
     location = location.substring(0, location.lastIndexOf("/") + 1);
-    window.location.href = location + "/search.html"
+    window.location.href = location + "search.html"
 }
 

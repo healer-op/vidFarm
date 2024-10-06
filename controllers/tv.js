@@ -103,7 +103,7 @@ async function getData(){
             <div class="list-item-details">
               <p class="item-title">${trending[i].name}</p>
               <div class="list-item-details-year-rating">
-                <h5>${trending[i].release_date}</h5>
+                <h5>${trending[i].first_air_date}</h5>
                 <img src="/images/tmdb.svg" alt="TMDB" />
                 <h5>${(trending[i].vote_average).toFixed(1)}</h5>
               </div>

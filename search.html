@@ -26,7 +26,7 @@
             <input type="text" placeholder="Search.." name="search" id="source2" />
           </div>
         </div>
-        <a href="/">
+        <a onclick="openIndex()">
           <img src="./images/logo.png" alt="" />
         </a>
         <nav>
@@ -34,19 +34,23 @@
           <ul class="nav-links">
             <li class="active-link">
             <i class="fa-solid fa-magnifying-glass"></i>
-              <a href="/search.html">Search</a>
+              <a onclick="opensearch()">Search</a>
             </li>
             <li>
               <i class="fa-solid fa-layer-group"></i>
-              <a href="/">Discover</a>
+              <a onclick="openIndex()">Discover</a>
             </li>
             <li>
               <i class="fa-solid fa-video"></i>
-              <a href="/movies.html">Movies</a>
+              <a onclick="openMovies()">Movies</a>
             </li>
             <li>
               <i class="fa-solid fa-tv"></i>
-              <a href="/tv.html">Tv Series</a>
+              <a onclick="openTv()">Tv Series</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-tv"></i>
+              <a onclick="openIptv()">IpTv</a>
             </li>
           </ul>
         </nav>
@@ -56,19 +60,23 @@
         <div class="overlay-content">
           <div class="active-link-mobile">
             <i class="fa-solid fa-magnifying-glass"></i>
-              <a href="/search.html">Search</a>
+              <a onclick="opensearch()">Search</a>
           </div>
           <div>
             <i class="fa-solid fa-layer-group"></i>
-            <a href="/">Discover</a>
+            <a onclick="openIndex()">Discover</a>
           </div>
           <div>
             <i class="fa-solid fa-video"></i>
-            <a href="/movies.html">Movies</a>
+            <a onclick="openMovies()">Movies</a>
           </div>
           <div>
             <i class="fa-solid fa-tv"></i>
-            <a href="/tv.html">TvSeries</a>
+            <a onclick="openTv()">TvSeries</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-tv"></i>
+              <a onclick="openIptv()">IpTv</a>
           </div>
         </div>
       </div>
@@ -84,6 +92,7 @@
           <select id="select-category" onchange="getData()">
             <option value="1">Movie</option>
             <option value="2">Tv Show</option>
+            <option value="3">Anime</option>
           </select>
         </div>
         <div class="genres-container">
@@ -102,6 +111,7 @@
         </div>
       </main>
     </div>
+    <script src="./js/social.js"></script>
     <script src="./controllers/search.js"></script>
     <script type="module" src="./js/header.js"></script>
     <script type="module" src="./js/movies-tv.js"></script>

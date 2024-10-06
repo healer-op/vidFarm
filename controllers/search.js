@@ -58,7 +58,7 @@ async function getData() {
           </div>`;
             }).join('');
             document.querySelector("#mov").insertAdjacentHTML("afterbegin", trending_html);
-        } else {
+        } if(y == 2) {
             let data = await (await fetch(`https://api.themoviedb.org/3/search/tv?&query=${x}`, options)).json();
             trending = data.results
             // console.log(trending)
@@ -77,6 +77,26 @@ async function getData() {
                 <h5>${trending[i].release_date}</h5>
                 <img src="/images/tmdb.svg" alt="TMDB" />
                 <h5>${(trending[i].vote_average).toFixed(1)}</h5>
+              </div>
+            </div>
+          </div>`;
+            }).join('');
+            document.querySelector("#mov").insertAdjacentHTML("afterbegin", trending_html);
+        } else{
+            let data = await (await fetch(`https://api3.janime.workers.dev/search/${encodeURIComponent(x)}`, options)).json();
+            trending = data.results
+
+            const trending_html = trending.map((f, i) => {
+                return `<div class="list-item"  onclick="getDetails('anime${trending[i].id}')">
+            <img
+              class="list-item-image"
+              src="${trending[i].img}"
+              alt="img"
+            />
+            <div class="list-item-details">
+              <p class="item-title">${trending[i].title}</p>
+              <div class="list-item-details-year-rating">
+                <h5>${trending[i].releaseDate}</h5>
               </div>
             </div>
           </div>`;

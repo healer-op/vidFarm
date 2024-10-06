@@ -24,7 +24,7 @@
           <i class="fa-solid fa-magnifying-glass" ></i>
         </div>
       </div>
-      <a href="/">
+      <a onclick="openIndex()">
         <img src="./images/logo.png" alt="" />
       </a>
       <nav>
@@ -32,19 +32,23 @@
         <ul class="nav-links">
           <li>
             <i class="fa-solid fa-magnifying-glass"></i>
-              <a href="/search.html">Search</a>
+              <a onclick="opensearch()">Search</a>
           </li>
           <li class="active-link">
             <i class="fa-solid fa-layer-group"></i>
-            <a href="/">Discover</a>
+            <a onclick="openIndex()">Discover</a>
           </li>
           <li>
             <i class="fa-solid fa-video"></i>
-            <a href="/movies.html">Movies</a>
+            <a onclick="openMovies()">Movies</a>
           </li>
           <li>
             <i class="fa-solid fa-tv"></i>
-            <a href="/tv.html">Tv Series</a>
+            <a onclick="openTv()">Tv Series</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-tv"></i>
+              <a onclick="openIptv()">IpTv</a>
           </li>
         </ul>
       </nav>
@@ -54,19 +58,23 @@
       <div class="overlay-content">
         <div>
           <i class="fa-solid fa-magnifying-glass"></i>
-              <a href="/search.html">Search</a>
+              <a onclick="opensearch()">Search</a>
         </div>
         <div class="active-link-mobile">
           <i class="fa-solid fa-layer-group"></i>
-          <a href="/">Discover</a>
+          <a onclick="openIndex()">Discover</a>
         </div>
         <div>
           <i class="fa-solid fa-video"></i>
-          <a href="/movies.html">Movies</a>
+          <a onclick="openMovies()">Movies</a>
         </div>
         <div>
           <i class="fa-solid fa-tv"></i>
-          <a href="/tv.html">TvSeries</a>
+          <a onclick="openTv()">TvSeries</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-tv"></i>
+              <a onclick="openIptv()">IpTv</a>
         </div>
 
       </div>
@@ -136,6 +144,7 @@
       <!-- custom scrollbar  -->
     </main>
   </div>
+  <script src="./js/social.js"></script>
   <script type="module" src="./js/header.js"></script>
   <script type="module" src="./js/main.js"></script>
 
