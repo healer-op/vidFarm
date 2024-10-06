@@ -132,7 +132,7 @@
 
             try {
                 let data = await (await fetch(`https://api3.janime.workers.dev/episode/${x}`)).json();
-                let server = [data.results.servers.streamwish, data.results.servers.vidhide, data.results.servers
+                let server = [data.results.servers.vidhide,data.results.servers.streamwish, data.results.servers
                     .vidcdn
                 ]
                 document.getElementById("multi").href = data.results.stream.Referer
